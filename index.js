@@ -4,6 +4,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const httpLogger = require("./middlewares/httpLogger");
 const logger = require("./config/logger");
+const helmet = require("helmet");
 
 
 require('dotenv').config();
@@ -23,7 +24,7 @@ const port = process.env.PORT;
 app.use(httpLogger);
 app.use(cors())
 app.use(express.json());
-
+app.use(helmet());
 
 //routes 
 app.use('/api/auth', authRouter);
