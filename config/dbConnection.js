@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const logger = require("./logger");
 
 const dbUrl = process.env.DATABASE_URL;
 
@@ -11,8 +12,8 @@ const dbUrl = process.env.DATABASE_URL;
             useUnifiedTopology: true,
             useCreateIndex: true
         });
-        console.log("MongoDB Connected");
+        logger.info("MongoDB Connected");
     } catch (err) {
-        console.log(err);
+        logger.info(err);
     }
 })();

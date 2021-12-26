@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const mongoose = require('mongoose');
+const httpLogger = require("./middlewares/httpLogger");
+const logger = require("./config/logger");
 
 
 require('dotenv').config();
@@ -14,12 +16,11 @@ const dealerRouter = require('./routes/api/dealerRouter');
 const representativeRouter = require('./routes/api/representativeRouter');
 
 
-
 // database connection
 require("./config/dbConnection");
 const port = process.env.PORT;
 
-
+app.use(httpLogger);
 app.use(cors())
 app.use(express.json());
 
@@ -34,8 +35,8 @@ app.use('/api/representative', representativeRouter);
 
 app.listen(port, err => {
     if (err) {
-        console.log(`Unable to run server \n${err}`);
+        logger.info(`Unable to run server \n${err}`);
         return;
     }
-    console.log(`Server is up and running on http://localhost:${port}`);
+    logger.info(`Server is up and running on http://localhost:${port}`);
 });
